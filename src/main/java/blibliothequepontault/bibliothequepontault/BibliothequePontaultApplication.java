@@ -16,32 +16,32 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import javax.annotation.security.RolesAllowed;
 import java.util.Arrays;
 import java.util.Locale;
-@Controller
+//@Controller
 @SpringBootApplication
-public class BibliothequePontaultApplication implements ApplicationRunner, CommandLineRunner, WebMvcConfigurer {
+public class BibliothequePontaultApplication implements  WebMvcConfigurer {
 
-    @RolesAllowed("*")
+    //@RolesAllowed("*")
     public static void main(String[] args) {
         SpringApplication.run(BibliothequePontaultApplication.class, args);
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception{
-        System.out.println("hello runner works" );
-    }
-    @Override
-    public void run(String... args) throws Exception{
-        System.out.println("hello runner cmd");
-    }
-
-    @Bean
-    public LocaleResolver localeResolver(){
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.FRANCE);
-        return slr;
-    }
-    @GetMapping(value="/helloWorld")
-    public String getHelloWorldVue(){
-        return "helloWorld";
-    }
+//    @Override
+//    public void run(ApplicationArguments args) throws Exception{
+//        System.out.println("hello runner works" );
+//    }
+//    @Override
+//    public void run(String... args) throws Exception{
+//        System.out.println("hello runner cmd");
+//    }
+//
+//    @Bean
+//    public LocaleResolver localeResolver(){
+//        SessionLocaleResolver slr = new SessionLocaleResolver();
+//        slr.setDefaultLocale(Locale.FRANCE);
+//        return slr;
+//    }
+//    @GetMapping(value="/hello")
+//    public String getHelloWorldVue(){
+//        return "helloWorld";
+//    }
 }
