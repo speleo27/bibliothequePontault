@@ -18,9 +18,9 @@ import java.util.Locale;
 @Controller
 
 @SpringBootApplication
-public class BiblioApplication implements  WebMvcConfigurer {
+public class BiblioApplication {
 
-    @RolesAllowed("*")
+    //@RolesAllowed("*")
     public static void main(String[] args) {
         SpringApplication.run(BiblioApplication.class, args);
     }
@@ -34,14 +34,14 @@ public class BiblioApplication implements  WebMvcConfigurer {
 //        System.out.println("hello runner cmd");
 //    }
 
-    @Bean
-    public LocaleResolver localeResolver(){
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.FRANCE);
-        return slr;
-    }
-    @GetMapping(value="/index")
-    public String getIndexVue(){
-        return "index";
-    }
+//    @Bean
+//    public LocaleResolver localeResolver(){
+//        SessionLocaleResolver slr = new SessionLocaleResolver();
+//        slr.setDefaultLocale(Locale.FRANCE);
+//        return slr;
+//    }
+//    @GetMapping(value="/index")
+//    public String getIndexVue(){
+//        return "index";
+//    }
 }
