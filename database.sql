@@ -1,5 +1,5 @@
 
-Create database biblio;
+--Create database biblio;
 
 CREATE TABLE editor(
                        id SERIAL NOT NULL  PRIMARY KEY,

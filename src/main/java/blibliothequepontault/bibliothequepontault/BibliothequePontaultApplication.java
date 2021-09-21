@@ -40,8 +40,8 @@ public class BibliothequePontaultApplication implements  WebMvcConfigurer {
 //        slr.setDefaultLocale(Locale.FRANCE);
 //        return slr;
 //    }
-//    @GetMapping(value="/hello")
-//    public String getHelloWorldVue(){
-//        return "helloWorld";
-//    }
+    @GetMapping(value="/index")
+    public String getIndexVue(){
+        return "index";
+    }
 }
