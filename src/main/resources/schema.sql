@@ -12,6 +12,7 @@ CREATE TABLE description(
 );
 
 CREATE TABLE language(
+    lang_id SERIAL NOT NULL,
     lang_name VARCHAR(50) NOT NULL PRIMARY KEY
 );
 

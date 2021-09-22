@@ -1,9 +1,32 @@
 package com.biblio.model;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
+@Setter
+@Builder
+@Entity
+@Table(name = "editor")
+@Getter
 public class Editor {
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Basic(optional = false)
+    @Column(name = "editorname")
     private String editor_name;
 
-    public Editor(String editor_name) {
+    public Editor(int id,String editor_name) {
+
+        this.id = id;
         this.editor_name = editor_name;
     }
 

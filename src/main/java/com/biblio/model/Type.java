@@ -13,27 +13,28 @@ import javax.persistence.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "description")
-public class Description {
+@Table(name = "type")
 
+public class Type {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    
     @Basic(optional = false)
-    @Column(name="desc_title")
-    private String title;
+    @Column(name="type_name")
+    private String type_name;
 
-    public Description(int id,String title) {
-        this.id = id;
-        this.title = title;
+    public Type(int id,String type_name) {
+        this.id =id;
+        this.type_name = type_name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getType_name() {
+        return type_name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
     }
 }
