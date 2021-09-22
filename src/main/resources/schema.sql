@@ -70,7 +70,10 @@ CREATE TABLE customer(
 CREATE TABLE copy(
                      id SERIAL NOT NULL PRIMARY KEY,
                      isbn VARCHAR(20) NOT NULL,
-                     library VARCHAR(50) NOT NULL
+                     lib_id INTEGER NOT NULL,
+                     FOREIGN KEY (isbn) REFERENCES book(isbn),
+                     FOREIGN KEY (lib_id) REFERENCES library(id)
+
 );
 
 CREATE TABLE rent(
@@ -82,6 +85,9 @@ CREATE TABLE rent(
                      FOREIGN KEY (user_id) REFERENCES customer(id),
                      FOREIGN KEY (copy_id) REFERENCES copy(id)
 );
-
+CREATE TABLE library(
+                     id SERIAL NOT NULL PRIMARY KEY ,
+                     lib_name VARCHAR(255) NOT NULL
+);
 
 
