@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 
 
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -16,10 +16,16 @@ import javax.validation.constraints.Email;
 @Builder
 @Entity
 @Table(name="customer")
-public class User {
+public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "user_seq",
+            sequenceName = "user_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "user_seq")
+    private Long id;
 
     @Email
     @Column(name = "email", unique = true)
@@ -37,7 +43,17 @@ public class User {
     @Column(name="pass")
     private String pass;
 
-    public User(int id, String email, String customer_lastname, String customer_firstname, String pass) {
+    public Customer() {
+    }
+
+    public Customer(String email, String customer_lastname, String customer_firstname, String pass) {
+        this.email = email;
+        this.customer_lastname = customer_lastname;
+        this.customer_firstname = customer_firstname;
+        this.pass = pass;
+    }
+
+    public Customer(Long id, String email, String customer_lastname, String customer_firstname, String pass) {
         this.id = id;
         this.email = email;
         this.customer_lastname = customer_lastname;
@@ -45,7 +61,7 @@ public class User {
         this.pass = pass;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,7 +81,7 @@ public class User {
         this.pass = pass;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -83,5 +99,16 @@ public class User {
 
     public String getPass() {
         return pass;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", customer_lastname='" + customer_lastname + '\'' +
+                ", customer_firstname='" + customer_firstname + '\'' +
+                ", pass='" + pass + '\'' +
+                '}';
     }
 }

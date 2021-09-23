@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -17,28 +17,50 @@ import javax.persistence.*;
 public class Paragraph {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "para_seq",
+            sequenceName = "para_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "para_seq")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="paragraph_order")
-    private int order;
+    private Long order;
 
     @Basic(optional = false)
     @Column(name="texte")
     private String content;
 
-    public Paragraph(int id, int order, String content) {
+    public Paragraph() {
+    }
+
+    public Paragraph(Long order, String content) {
+        this.order = order;
+        this.content = content;
+    }
+
+    public Paragraph(Long id, Long order, String content) {
         this.id =id;
         this.order = order;
         this.content = content;
     }
 
-    public int getOrder() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
+    public void setOrder(Long order) {
         this.order = order;
     }
 

@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -17,16 +17,37 @@ import javax.persistence.*;
 public class Description {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "desc_seq",
+            sequenceName = "desc_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "desc_seq")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="desc_title")
     private String title;
 
-    public Description(int id,String title) {
+    public Description() {
+    }
+
+    public Description(String title) {
+        this.title = title;
+    }
+
+    public Description(Long id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

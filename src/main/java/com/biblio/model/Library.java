@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -18,23 +18,36 @@ import javax.validation.constraints.Email;
 
 public class Library {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "lib_seq",
+            sequenceName = "lib_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "lib_seq")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="lib_name")
     private String lib_name;
 
-    public Library(int id, String lib_name) {
+    public Library() {
+    }
+
+    public Library(String lib_name) {
+        this.lib_name = lib_name;
+    }
+
+    public Library(Long id, String lib_name) {
         this.id = id;
         this.lib_name = lib_name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

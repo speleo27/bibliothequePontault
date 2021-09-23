@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -19,8 +19,14 @@ import javax.validation.constraints.Email;
 
 public class Copy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "copy_seq",
+            sequenceName = "copy_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "copy_seq")
+    private Long id;
 
     @OneToOne
     @JoinColumn(name="isbn", referencedColumnName = "isbn")
@@ -30,17 +36,25 @@ public class Copy {
     @JoinColumn(name="lib_id", referencedColumnName = "id")
     private Library lib_id;
 
-    public Copy(int id, Book isbn, Library lib_id) {
+    public Copy() {
+    }
+
+    public Copy(Book isbn, Library lib_id) {
+        this.isbn = isbn;
+        this.lib_id = lib_id;
+    }
+
+    public Copy(Long id, Book isbn, Library lib_id) {
         this.id = id;
         this.isbn = isbn;
         this.lib_id = lib_id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

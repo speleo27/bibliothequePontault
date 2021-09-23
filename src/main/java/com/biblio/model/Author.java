@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 
-@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -16,8 +16,14 @@ import javax.persistence.*;
 @Table(name = "author")
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "author_seq",
+            sequenceName = "author_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    generator = "author_seq")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="lastname")
@@ -27,16 +33,24 @@ public class Author {
     @Column(name = "firstname")
     private String author_firstname;
 
-    public Author(int id, String author_lastname) {
+    public Author() {
+    }
+
+    public Author(Long id, String author_lastname) {
         this.id = id;
         this.author_lastname = author_lastname;
     }
 
-    public Author(int id, String author_lastname, String author_firstname) {
+    public Author(String author_lastname) {
+        this.author_lastname = author_lastname;
+    }
+
+    public Author(Long id, String author_lastname, String author_firstname) {
         this.id = id;
         this.author_lastname = author_lastname;
         this.author_firstname = author_firstname;
     }
+
 
     public Author(String author_lastname, String author_firstname) {
         this.author_lastname = author_lastname;
@@ -55,9 +69,15 @@ public class Author {
         return author_firstname;
     }
 
-
-
     public void setAuthor_firstname(String author_firstname) {
         this.author_firstname = author_firstname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

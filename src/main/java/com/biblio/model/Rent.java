@@ -1,13 +1,14 @@
 package com.biblio.model;
 
+
 import java.util.Date;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
-@NoArgsConstructor
+
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Getter
@@ -18,8 +19,14 @@ import javax.validation.constraints.Email;
 
 public class Rent {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "rent_seq",
+            sequenceName = "rent_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "rent_seq")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="date_start")
@@ -37,26 +44,37 @@ public class Rent {
 
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "id")
-    private User user_id;
+    private Customer customer_id;
 
     @ManyToOne
     @JoinColumn(name="copy_id", referencedColumnName = "id")
     private Copy copy_id;
 
-    public Rent(int id, Date date_start, Date date_end, boolean renew, User user_id, Copy copy_id) {
+    public Rent() {
+    }
+
+    public Rent(Date date_start, Date date_end, boolean renew, Customer customer_id, Copy copy_id) {
+        this.date_start = date_start;
+        this.date_end = date_end;
+        this.renew = renew;
+        this.customer_id = customer_id;
+        this.copy_id = copy_id;
+    }
+
+    public Rent(Long id, Date date_start, Date date_end, boolean renew, Customer customer_id, Copy copy_id) {
         this.id = id;
         this.date_start = date_start;
         this.date_end = date_end;
         this.renew = renew;
-        this.user_id = user_id;
+        this.customer_id = customer_id;
         this.copy_id = copy_id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,12 +102,12 @@ public class Rent {
         this.renew = renew;
     }
 
-    public User getUser_id() {
-        return user_id;
+    public Customer getCustomer_id() {
+        return customer_id;
     }
 
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
+    public void setCustomer_id(Customer customer_id) {
+        this.customer_id = customer_id;
     }
 
     public Copy getCopy_id() {

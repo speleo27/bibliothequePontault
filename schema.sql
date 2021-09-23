@@ -1,22 +1,22 @@
 
 --Create database biblio;
 
-CREATE TABLE editor(
+CREATE TABLE IF NOT EXISTS editor (
                        id SERIAL NOT NULL  PRIMARY KEY,
                        editorName VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE description(
+CREATE TABLE IF NOT EXISTS description(
                             id SERIAL NOT NULL  PRIMARY KEY,
                             desc_title VARCHAR(100)
 );
 
-CREATE TABLE language(
+CREATE TABLE IF NOT EXISTS language(
     lang_id SERIAL NOT NULL,
     lang_name VARCHAR(50) NOT NULL PRIMARY KEY
 );
 
-Create table book (
+Create table IF NOT EXISTS book (
                       isbn VARCHAR(20) NOT NULL PRIMARY KEY ,
                       title VARCHAR(100) NOT NULL ,
                       editor_id INTEGER NOT NULL,
@@ -28,38 +28,38 @@ Create table book (
                       FOREIGN KEY (language) REFERENCES language(lang_name)
 );
 
-CREATE TABLE type (
+CREATE TABLE IF NOT EXISTS type (
                       id SERIAL NOT NULL PRIMARY KEY,
                       type_name VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE type_of_Book(
+CREATE TABLE IF NOT EXISTS type_of_Book(
                              isbn VARCHAR(20) NOT NULL,
                              type_id INTEGER NOT NULL,
                              FOREIGN KEY (isbn) REFERENCES  book(isbn),
                              FOREIGN KEY (type_id) REFERENCES type(id)
 );
 
-CREATE TABLE author(
+CREATE TABLE IF NOT EXISTS author(
                        id SERIAL NOT NULL PRIMARY KEY,
                        lastname VARCHAR(100) NOT NULL,
                        firstname VARCHAR(100)
 );
 
-CREATE TABLE author_book(
+CREATE TABLE IF NOT EXISTS author_book(
                             isbn VARCHAR(20) NOT NULL,
                             author_id INTEGER NOT NULL,
                             FOREIGN KEY (isbn) REFERENCES  book(isbn),
                             FOREIGN KEY (author_id) REFERENCES author(id)
 );
 
-CREATE TABLE paragraph (
+CREATE TABLE IF NOT EXISTS paragraph (
                            desc_id INTEGER NOT NULL ,
                            paragraph_order INTEGER NOT NULL PRIMARY KEY ,
                            texte text NOT NULL
 );
 
-CREATE TABLE customer(
+CREATE TABLE IF NOT EXISTS customer(
                          id SERIAL NOT NULL PRIMARY KEY,
                          email VARCHAR(100) NOT NULL UNIQUE,
                          user_lastname VARCHAR(100) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE customer(
                          pass VARCHAR(100) NOT NULL
 
 );
-CREATE TABLE copy(
+CREATE TABLE IF NOT EXISTS copy(
                      id SERIAL NOT NULL PRIMARY KEY,
                      isbn VARCHAR(20) NOT NULL,
                      lib_id INTEGER NOT NULL,
@@ -76,16 +76,16 @@ CREATE TABLE copy(
 
 );
 
-CREATE TABLE rent(
+CREATE TABLE IF NOT EXISTS rent(
                      date_start TIMESTAMP NOT NULL ,
                      date_end TIMESTAMP NOT NULL,
                      renew BOOLEAN DEFAULT FALSE,
-                     user_id INTEGER NOT NULL,
+                     customer_id INTEGER NOT NULL,
                      copy_id INTEGER NOT NULL,
-                     FOREIGN KEY (user_id) REFERENCES customer(id),
+                     FOREIGN KEY (customer_id) REFERENCES customer(id),
                      FOREIGN KEY (copy_id) REFERENCES copy(id)
 );
-CREATE TABLE library(
+CREATE TABLE IF NOT EXISTS library(
                      id SERIAL NOT NULL PRIMARY KEY ,
                      lib_name VARCHAR(255) NOT NULL
 );
